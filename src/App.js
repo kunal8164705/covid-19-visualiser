@@ -23,6 +23,8 @@ import numeral from 'numeral';
 
 
 
+
+
 function App() {
  const [countries,setCountries]=useState([]);
  const [country,setCountry]=useState('worldwide');
@@ -86,17 +88,20 @@ useEffect(()=>{
   .then((data)=>{
       setCountry(countryCode);
       setCountryInfo(data);
+
+
       countryCode === "worldwide"
           ? setMapCenter([34.80746, -40.4796])
           : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
       setMapZoom(4);
+      
   });
 
 
  };
 
 console.log('country info',countryInfo);
-console.log('map center',mapCenter);
+console.log('country',country.country);
 
 
 
@@ -185,8 +190,10 @@ console.log('map center',mapCenter);
         
 
         
-        <h3>Worldwide new {casesType}</h3>
-            <LineGraph casesType={casesType} />
+        {/* <h3>Worldwide new {casesType}</h3> */}
+        <h3>{(countryInfo.country)?countryInfo.country:"Worldwide"} new {casesType}</h3>
+
+            <LineGraph casesType={casesType}  country={countryInfo.country}/>
         </div>
         </CardContent>
            

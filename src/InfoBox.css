@@ -13,19 +13,21 @@
   }
   
   .infoBox--red {
-    border-color: red;
+    border-color: #ff0000;
   }
 
   .infoBox--grey{
     border-color: #555e55;
   }
+
   
-  .infoBox__cases--green {
-    color: lightgreen !important;
-  }
   
   .infoBox__cases--grey {
     color: #555e55 !important;
+  }
+  
+  .infoBox__cases--green {
+    color: lightgreen !important;
   }
 
 

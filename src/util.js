@@ -29,8 +29,10 @@ const sortedData=[...data];
 
 
 
-export const showDataOnMap = (data, casesType) =>
-  data.map((country) => (
+export const showDataOnMap = (data, casesType ) =>
+
+data.map((country) => (
+   
     <Circle
     center={[country.countryInfo.lat, country.countryInfo.long]}
     fillOpacity={0.4}
@@ -39,6 +41,7 @@ export const showDataOnMap = (data, casesType) =>
       Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier*0.4
     }
     >
+      
       <Popup>
        
       <div className="info-container">
