@@ -15,11 +15,20 @@
   .infoBox--red {
     border-color: red;
   }
+
+  .infoBox--grey{
+    border-color: #555e55;
+  }
   
   .infoBox__cases--green {
     color: lightgreen !important;
   }
   
+  .infoBox__cases--grey {
+    color: #555e55 !important;
+  }
+
+
   .infoBox__cases {
     color: #cc1034;
     font-weight: 600;

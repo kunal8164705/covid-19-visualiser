@@ -148,6 +148,7 @@ console.log('map center',mapCenter);
           <InfoBox title="Recovered"  
           onClick={(e) => setCasesType("recovered")}
           title="Recovered"
+          isgreen
           active={casesType === "recovered"}
 
           cases={prettyPrintStat(countryInfo.todayRecovered)}
@@ -156,7 +157,8 @@ console.log('map center',mapCenter);
           <InfoBox title="Deaths"   
            onClick={(e) => setCasesType("deaths")}
            title="Deaths"
-           isRed
+          //  isRed
+          isgrey
            active={casesType === "deaths"}
           cases={prettyPrintStat(countryInfo.todayDeaths)}
             total={numeral(countryInfo.deaths).format("0.0a")} />
