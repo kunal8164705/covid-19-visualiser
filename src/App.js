@@ -157,7 +157,7 @@ console.log('map center',mapCenter);
           <InfoBox title="Deaths"   
            onClick={(e) => setCasesType("deaths")}
            title="Deaths"
-          //  isRed
+          
           isgrey
            active={casesType === "deaths"}
           cases={prettyPrintStat(countryInfo.todayDeaths)}
