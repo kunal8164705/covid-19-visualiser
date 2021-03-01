@@ -50,6 +50,7 @@ const options = {
 const buildChartData = (data, casesType) => {
   let chartData = [];
   let lastDataPoint;
+
   for (let date in data.cases) {
     if (lastDataPoint) {
       let newDataPoint = {
@@ -60,65 +61,76 @@ const buildChartData = (data, casesType) => {
     }
     lastDataPoint = data[casesType][date];
   }
+
+
   return chartData;
 };
 
-function LineGraph({ casesType,country }) {
+function LineGraph({ casesType, country }) {
   const [data, setData] = useState({});
-  console.log('inside graph :',country);
-        if(!country){
-          country="all";
-        }
+  const [Flag, setFlag] = useState(false);
+
+  if (!country) {
+    country = "all";
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=120`)
+      await fetch(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=60`)
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          if(country!=="all"){data=data.timeline;}
-          let chartData = buildChartData(data, casesType);
-          setData(chartData);
-          console.log(chartData);
-          // buildChart(chartData);
+          if (data.country || data.cases) {
+            if (country !== "all") { data = data.timeline; }
+            let chartData = buildChartData(data, casesType);
+            setData(chartData);
+          }
+          else {
+            setFlag(true);
+            setData({});
+          }
         });
     };
 
     fetchData();
-  }, [casesType,country]);
+  }, [casesType, country]);
 
-  
+
   var graph_color;
-  if(casesType==='cases'){
-      graph_color="#CC1034";
+  if (casesType === 'cases') {
+    graph_color = "#CC1034";
   }
-  else if(casesType==='recovered'){
-    graph_color="#90ee90";
+  else if (casesType === 'recovered') {
+    graph_color = "#90ee90";
   }
-  else{
-    graph_color="#555e55";
+  else {
+    graph_color = "#555e55";
   }
 
-
+  console.log("check flag", Flag);
 
   return (
     <div>
-      {data?.length > 0 && (
-        <Line
-          data={{
-            datasets: [
-              {
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
-                // borderColor: "#CC1034",
-                borderColor:`${graph_color}`,
-                data: data,
-              },
-            ],
-          }}
-          options={options}
-        />
-      )}
+
+      {
+
+
+        data.length > 0 ? (
+          <Line
+            data={{
+              datasets: [
+                {
+                  backgroundColor: "rgba(255, 255, 255, 0.5)",
+                  borderColor: `${graph_color}`,
+                  data: data,
+                },
+              ],
+            }}
+            options={options}
+          />
+        ) : <div Style="margin:4rem;">Recents updates unavailable.</div>
+      }
     </div>
   );
 }
